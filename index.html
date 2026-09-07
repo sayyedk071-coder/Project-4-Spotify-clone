@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UltraEdit</title>
+
+    <style>
+        :root {
+            --yellow: #ffe600;
+            --yellow-deep: #f4d600;
+            --bg-soft: #f2f0ec;
+            --bg-alt: #ece9e9;
+            --text: #1d1d1d;
+            --muted: #555;
+            --muted-light: #aaaaaa;
+            --card: #ffffff;
+            --dark: #1f1f1f;
+            --dark-2: #2c2c2c;
+            --shadow: rgba(0, 0, 0, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-width: 320px;
+            overflow-x: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.5;
+            color: var(--text);
+            background: #fff;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        button {
+            transition: all 0.25s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            background-color: var(--yellow-deep);
+        }
+
+        button:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .cards,
+        .features-cards {
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .cards:hover,
+        .features-cards:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(255, 0, 0, 0.12);
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--bg-alt);
+        }
+
+        .promo-bar {
+            background: var(--yellow);
+            text-align: center;
+            padding: 8px 12px;
+            font-size: 12px;
+            line-height: 1.4;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 15px clamp(16px, 5vw, 40px);
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .logo img {
+            display: block;
+            height: clamp(44px, 5vw, 65px);
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        nav ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(8px, 2vw, 20px);
+            list-style: none;
+        }
+
+        nav ul li {
+            padding: 8px 10px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 0.95rem;
+        }
+
+        .button,
+        .buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .menu-toggle {
+            display: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            background: var(--yellow);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 5px;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: #111;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .button button {
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-size: 1rem;
+            background: #f3f3f3;
+        }
+
+        .button button:first-child {
+            background: var(--yellow);
+        }
+
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            align-items: center;
+            gap: clamp(28px, 5vw, 40px);
+            padding: clamp(36px, 7vw, 60px) clamp(18px, 5vw, 60px);
+        }
+
+        .text-main h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            line-height: 1.08;
+            margin-bottom: 20px;
+        }
+
+        .text-main p {
+            color: var(--muted);
+            margin-bottom: 25px;
+            font-size: 1.02rem;
+            max-width: 620px;
+        }
+
+        .buttons {
+            justify-content: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .text-main button {
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .primary {
+            background: var(--yellow);
+        }
+
+        .secondary {
+            background: #ddd;
+        }
+
+        .rating {
+            color: var(--muted);
+            font-size: 0.98rem;
+        }
+
+        .main-img {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main-img img {
+            width: min(100%, 550px);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        section.features {
+            background: var(--bg-soft);
+            padding-bottom: 40px;
+        }
+
+        .grid,
+        .container,
+        .features {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .grid p,
+        .container > p,
+        .features > p {
+            text-align: center;
+            padding-top: 40px;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .grid h1,
+        .container h1,
+        .features h1 {
+            font-size: clamp(28px, 5vw, 43px);
+            text-align: center;
+            line-height: 1.17;
+            padding: 10px 16px 0;
+        }
+
+        .grids,
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 23px;
+            padding: clamp(32px, 7vw, 90px) clamp(16px, 5vw, 90px);
+        }
+
+        .cards,
+        .features-cards {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 20px 18px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.03);
+        }
+
+        .cards h2,
+        .features-cards h3 {
+            margin-bottom: 12px;
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+        }
+
+        .cards p {
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 0.98rem;
+        }
+
+        .line {
+            overflow: hidden;
+            background: #f5f5f5;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+
+        .logoes {
+            display: flex;
+            align-items: center;
+            gap: clamp(28px, 6vw, 50px);
+            width: max-content;
+            animation: scroll 20s linear infinite;
+            padding: 0 20px;
+        }
+
+        .logoes img {
+            height: clamp(28px, 5vw, 40px);
+            opacity: 0.7;
+            filter: grayscale(1);
+        }
+
+        @keyframes scroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-60%);
+            }
+        }
+
+        .box-1 {
+            max-width: 1200px;
+            margin: clamp(36px, 8vw, 100px) auto;
+            background: var(--bg-soft);
+            border-radius: 12px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .box-1:nth-of-type(2n) .image1 {
+            order: 2;
+        }
+
+        .box-1:nth-of-type(2n) .text-1 {
+            order: 1;
+        }
+
+        .image1 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .image1 img {
+            width: 100%;
+            max-width: 520px;
+            height: auto;
+            object-fit: cover;
+            padding: clamp(14px, 3vw, 24px);
+            border-radius: 16px;
+        }
+
+        .text-1 {
+            padding: clamp(24px, 4vw, 67px);
+        }
+
+        .text-1 p {
+            margin: 0 0 14px;
+            color: var(--muted);
+            text-align: left;
+            padding: 0;
+        }
+
+        .text-1 h2 {
+            font-size: clamp(24px, 4vw, 34px);
+            line-height: 1.2;
+            margin-bottom: 18px;
+        }
+
+        .text-1 button {
+            margin-top: 8px;
+            padding: 12px 18px;
+            border-radius: 6px;
+            background: var(--yellow);
+        }
+
+        .btnfeatures {
+            display: flex;
+            justify-content: center;
+            padding: 0 16px 30px;
+        }
+
+        .btnfeatures button {
+            background-color: var(--yellow);
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            border-radius: 8px;
+            padding: 14px 28px;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, var(--dark), var(--dark-2));
+            color: #ddd;
+            padding: clamp(32px, 6vw, 50px) clamp(18px, 5vw, 40px);
+            border-radius: 12px 12px 0 0;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .footer-left {
+            flex: 1 1 300px;
+            max-width: 360px;
+        }
+
+        .footer-left h2 {
+            font-size: 30px;
+        }
+
+        .footer-left h3 {
+            margin-top: 10px;
+        }
+
+        .footer-left p {
+            margin: 15px 0;
+            font-size: 14px;
+            color: var(--muted-light);
+        }
+
+        .newsletter h4 {
+            margin-bottom: 8px;
+        }
+
+        .email-box {
+            display: flex;
+            width: min(100%, 340px);
+            margin-top: 12px;
+        }
+
+        .email-box input {
+            flex: 1;
+            min-width: 0;
+            padding: 12px 14px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+
+        .email-box button {
+            background: var(--yellow);
+            border: none;
+            padding: 12px 18px;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .footer-links {
+            flex: 2 1 420px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(24px, 5vw, 60px);
+        }
+
+        .footer-links > div {
+            min-width: 120px;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin: 6px 0;
+            color: #bbb;
+            cursor: pointer;
+        }
+
+        .footer-links li:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 40px auto 0;
+            text-align: right;
+            font-size: 13px;
+            color: var(--muted-light);
+        }
+
+        @media (max-width: 980px) {
+            .main {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .buttons {
+                justify-content: center;
+            }
+
+            .grids,
+            .features-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .box-1 {
+                grid-template-columns: 1fr;
+            }
+
+            .box-1:nth-of-type(2n) .image1,
+            .box-1:nth-of-type(2n) .text-1 {
+                order: initial;
+            }
+
+            .text-1 p {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .promo-bar {
+                display: none;
+            }
+
+            nav {
+                justify-content: space-between;
+                padding: 10px 12px;
+                gap: 10px;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                padding: 12px;
+                border-radius: 10px;
+                background: #f3f3f3;
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .navbar.open .nav-links {
+                display: flex;
+            }
+
+            nav ul {
+                width: 100%;
+                flex-direction: column;
+                justify-content: center;
+                align-items: stretch;
+                gap: 8px;
+            }
+
+            nav ul li {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+                text-align: center;
+                border-radius: 6px;
+            }
+
+            .button {
+                width: 100%;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .button button {
+                width: 100%;
+                min-width: 0;
+                padding: 10px 12px;
+                font-size: 0.95rem;
+            }
+
+            .navbar.open .menu-toggle span:nth-child(1) {
+                transform: translateY(7px) rotate(45deg);
+            }
+
+            .navbar.open .menu-toggle span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .navbar.open .menu-toggle span:nth-child(3) {
+                transform: translateY(-7px) rotate(-45deg);
+            }
+
+            .grids,
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                flex-direction: column;
+            }
+
+            .footer-bottom {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .promo-bar {
+                font-size: 11px;
+            }
+
+            nav {
+                padding: 12px;
+            }
+
+            nav ul {
+                gap: 4px;
+                font-size: 14px;
+            }
+
+            nav ul li {
+                padding: 6px 8px;
+            }
+
+            .button,
+            .buttons,
+            .email-box {
+                width: 100%;
+            }
+
+            .button button,
+            .buttons button,
+            .btnfeatures button,
+            .email-box button,
+            .email-box input {
+                width: 100%;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .email-box {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .email-box input,
+            .email-box button {
+                border-radius: 6px;
+            }
+
+            .text-1 {
+                padding: 22px 18px;
+            }
+
+            button:hover,
+            .cards:hover,
+            .features-cards:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h3 class="promo-bar">UE Core & Enterprise Subscriptions: Get 10% Off on your second year Buy Now →</h3>
+        <nav class="navbar" id="mainNav">
+            <div class="logo"><img src="logo.png" alt=""></div>
+
+            <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="nav-links">
+                <ul>
+                    <li>Product</li>
+                    <li>Services</li>
+                    <li>Support</li>
+                    <li>Learn</li>
+                    <li>Company</li>
+                </ul>
+
+                <div class="button">
+                    <button style="background-color: yellow;">Downlode</button>
+                    <button>English</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main">
+
+        <div class="text-main">
+            <h1>The modern text editor built for huge files.</h1>
+
+            <p>UltraEdit is the high-performance text editor that IT and data professionals trust for massive file
+                editing, effortless data parsing, and complex text manipulation that free editors can not handle.
+            </p>
+
+            <div class="buttons">
+                <button class="primary">Free Trial</button>
+                <button class="secondary">View Plans</button>
+            </div>
+
+            <div class="rating">
+                ⭐⭐⭐⭐⭐ 4.7/5 — Trusted by professionals
+            </div>
+
+        </div>
+        <div class="main-img">
+            <img src="assets/find_replace.gif" alt="">
+        </div>
+
+    </div>
+
+    <section class="features">
+
+        <div class="grid">
+            <p>What Can Ultra Edit Do For You</p>
+
+            <h1 style="padding-top: 23px; display: flex; align-items: center; justify-content: center;">UltraEdit solves
+                the problems</h1>
+            <h1 style="padding-bottom: 43px; display: flex; align-items: center; justify-content: center;">other text
+                editors can not</h1>
+
+            <div class="grids">
+                <div class="cards">
+                    <h2>Edits Huge Files....With Zero LAg</h2>
+                    <p>have to open and edit large files? UltraEdit easily handles massive 10+ GB files that choke or
+                        crash other editors and IDEs.</p>
+                </div>
+                <div class="cards">
+                    <h2>handle Sensetive Data With Confidence</h2>
+                    <p>When your work involves sensitive information, you need an editor built for security and
+                        compliance. Get peace of mind with a fortified editing environment and a professional support
+                        team available 24/7 to help meet your security and compliance requirements.</p>
+                </div>
+
+                <div class="cards">
+                    <h2>Nagivate Your Entire Workspace Instatly </h2>
+                    <p>Stop wasting time hunting for files or switching between tools. UltraEdit unified navigation
+                        setup lets you jump to any file on your local machine, search across your entire project history
+                        using the command palette, or access remote servers through integrated FTP/SFTP.</p>
+                </div>
+
+                <div class="cards">
+                    <h2>Work Semlesly Across Any Files Or Language</h2>
+                    <p>Handle everything from legacy and proprietary formats, to modern coding languages. With 500+
+                        supported file types and 487+ custom wordfiles, get precise syntax highlighting and support for
+                        TXT, CSV, JSON, XML, EDI, log, binary, and countless other formats.</p>
+                </div>
+                <div class="cards">
+                    <h2>Automative Repetitive Task</h2>
+                    <p>Automate repetitive edits with UltraEd macros and JavaScript-based scripting engine. Combined
+                        with regular expressions and column mode, these tools transform hours of manual work into
+                        single-click operations.</p>
+                </div>
+                <div class="cards">
+                    <h2>Converts Between Data Formates</h2>
+                    <p>UltraEdit supports numerous file formats, letting you view, edit, and convert data between CSV,
+                        XML, JSON, and various encodings (Unix/DOS/UTF-8/hex) with ease.</p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="container">
+        <p>The Worlds Most Loved Editor</p>
+
+        <h1>From solo devs to global enterprises — trusted for work that can not fail</h1>
+
+        <div class="line">
+            <div class="logoes">
+                <img src="assets/Kaiser-Permanente_logo_Grey-1.svg" alt="">
+                <img src="assets/MassMutual_logo_Grey-1.svg" alt="">
+                <img src="assets/Capital_One_Grey-1.svg" alt="">
+                <img src="assets/CTBC-Tawain-Life-Ins._Grey-1.svg" alt="">
+            </div>
+        </div>
+
+        <div class="box-1">
+
+            <div class="text-1">
+                <p>For Buissenes And enterprises</p>
+
+                <h2>Specialized deployment kit for multi-million dollar company
+                </h2>
+
+                <p>Problem: A longstanding UltraEdit enterprise client with over 57,000 faced a regulatory change
+                    requiring
+                    language availability in their software, which made their deployment processes cumbersome.
+
+                </p>
+
+                <p>Solution: UltraEdit engineers collaborated with the client team to implement a customized,
+                    flexible
+                    deployment kit that ultimately reduced the company deployment work hours by 60%
+
+                </p>
+
+                <button>Discover</button>
+            </div>
+            <div class="image1">
+                <img src="assets/Deployment-Kit-Use-Case-Section-980x613.png" alt="">
+            </div>
+        </div>
+        <div class="box-1">
+
+            <div class="image1">
+                <img src="assets/Deployment-Kit-Use-Case-Section-980x613.png" alt="">
+            </div>
+            <div class="text-1">
+                <p>For Buissenes And enterprises</p>
+
+                <h2>Specialized deployment kit for multi-million dollar company
+                </h2>
+
+                <p>Problem: A longstanding UltraEdit enterprise client with over 57,000 faced a regulatory change
+                    requiring
+                    language availability in their software, which made their deployment processes cumbersome.
+
+                </p>
+
+                <p>Solution: UltraEdit engineers collaborated with the client team to implement a customized,
+                    flexible
+                    deployment kit that ultimately reduced the company deployment work hours by 60%
+
+                </p>
+
+                <button>Discover</button>
+            </div>
+
+        </div>
+        <div class="box-1">
+
+            <div class="text-1">
+                <p>For Buissenes And enterprises</p>
+
+                <h2>Specialized deployment kit for multi-million dollar company
+                </h2>
+
+                <p>Problem: A longstanding UltraEdit enterprise client with over 57,000 faced a regulatory change
+                    requiring
+                    language availability in their software, which made their deployment processes cumbersome.
+
+                </p>
+
+                <p>Solution: UltraEdit engineers collaborated with the clients team to implement a customized,
+                    flexible
+                    deployment kit that ultimately reduced the company deployment work hours by 60%
+
+                </p>
+
+                <button>Discover</button>
+            </div>
+            <div class="image1">
+                <img src="assets/Deployment-Kit-Use-Case-Section-980x613.png" alt="">
+            </div>
+        </div>
+    </section>
+
+
+    <section class="features">
+        <p>Hundreds of features to make your life easier</p>
+
+        <h1>Editor Features</h1>
+
+        <div class="features-grid">
+            <div class="features-cards">
+                <h3>Custom themes and layouts</h3>
+            </div>
+            <div class="features-cards">
+                <h3>Find and replace</h3>
+            </div>
+            <div class="features-cards">
+                <h3>Multi-caret/multi-select</h3>
+            </div>
+            <div class="features-cards">
+                <h3>Column / block mode</h3>
+            </div>
+            <div class="features-cards">
+                <h3>HTML / Markdown live preview
+                    Text and file search
+                </h3>
+            </div>
+            <div class="features-cards">
+                <h3>Text and file search</h3>
+            </div>
+            <div class="features-cards">
+                <h3>Integrated FTP, SSH & Telnet</h3>
+            </div>
+            <div class="features-cards">
+                <h3>File and folder compare</h3>
+            </div>
+            <div class="features-cards">
+                <h3>XML handling</h3>
+            </div>
+
+        </div>
+
+        <div class="btnfeatures">
+            <button>Downlode Ultra Edit</button>
+        </div>
+
+        <footer class="footer">
+
+            <div class="footer-container">
+
+                <!-- Left Section -->
+                <div class="footer-left">
+                    <h2>🟡 UE</h2>
+                    <h3>UltraEdit</h3>
+                    <p>
+                        UltraEdit is the powerful text editor built for developers, data wranglers,
+                        and IT pros handling large files and complex tasks.
+                    </p>
+
+                    <div class="newsletter">
+                        <h4>Newsletter Signup</h4>
+                        <p>Stay updated on new features, tutorials, and exclusive offers.</p>
+
+                        <div class="email-box">
+                            <input type="email" placeholder="email@email.com">
+                            <button>Subscribe</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Links Section -->
+                <div class="footer-links">
+
+                    <div>
+                        <h4>Company</h4>
+                        <ul>
+                            <li>About Us</li>
+                            <li>Contact Us</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4>Products</h4>
+                        <ul>
+                            <li>UltraEdit</li>
+                            <li>UltraCompare</li>
+                            <li>UEStudio</li>
+                            <li>UltraFinder</li>
+                            <li>UltraFTP</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4>Support</h4>
+                        <ul>
+                            <li>Help Center</li>
+                            <li>Documentation</li>
+                            <li>Community</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4>Legal</h4>
+                        <ul>
+                            <li>Privacy Policy</li>
+                            <li>Refund Policy</li>
+                            <li>License Agreement</li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Bottom -->
+            <div class="footer-bottom">
+                © Copyright 2026, All Rights Reserved
+            </div>
+
+        </footer>
+    </section>
+
+    <script>
+        const navbar = document.getElementById('mainNav');
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (menuToggle) {
+            menuToggle.addEventListener('click', () => {
+                const isOpen = navbar.classList.toggle('open');
+                menuToggle.setAttribute('aria-expanded', isOpen);
+            });
+        }
+
+        navLinks?.querySelectorAll('li').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 760) {
+                    navbar.classList.remove('open');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
+  
