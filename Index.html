@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify clone</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <section class="nav">
+            <div class="navleft">
+                <button class="home-btn">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path
+                            d="M12.5 3.245a1 1 0 0 0-1 0L3 9.58V20a1 1 0 0 0 1 1h5v-6h4v6h5a1 1 0 0 0 1-1V9.58l-8.5-6.335z" />
+                    </svg>
+                </button>
+
+                <div class="logo">
+                    <img src="assets/logo.png" alt="">
+                </div>
+
+                <div class="search-container">
+
+
+
+                    <div class="search-input-group">
+
+                        <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                            <path
+                                d="M10.533 1.278c-5.11 0-9.255 4.145-9.255 9.255s4.145 9.255 9.255 9.255c1.92 0 3.702-.59 5.195-1.59l4.57 4.57a1 1 0 0 0 1.415-1.415l-4.57-4.57c1-1.493 1.59-3.275 1.59-5.195 0-5.11-4.145-9.255-9.255-9.255zm0 2c3.99 0 7.255 3.265 7.255 7.255s-3.265 7.255-7.255 7.255-7.255-3.265-7.255-7.255 3.265-7.255 7.255-7.255z" />
+                        </svg>
+
+                        <input type="text" placeholder="What do you want to play?" class="search-input">
+                    </div>
+
+
+                    <div class="divider"></div>
+
+                    <button class="browse-btn" aria-label="Browse">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                            <path
+                                d="M20 6h-4V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2v2H4c-1.1 0-2 .9-2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM10 4h4v2h-4V4zm10 16H4V8h16v12z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="navright">
+                <ul>
+                    <li class="Premium">Premium</li>
+                    <li class="Support">Support</li>
+                    <li class="Downlode">Downlode</li>
+                </ul>
+
+                <div class="seperation">|</div>
+
+
+                <ul>
+                    <li><button class="Inatall-App">Inatall App</button></li>
+                    <li><button class="Sign-Up">Sign Up</button></li>
+                    <li><button class="log-In">log In</button></li>
+                </ul>
+
+            </div>
+
+        </section>
+
+        <section class="main">
+            <section class="left">
+                <div class="top">
+                    <h4>Your library</h4>
+                    <h4><button class="top-btn">+ Create</button></h4>
+                </div>
+
+                <div class="card1">
+                    <h4>Create your First Playlist</h4>
+                    <p>Its easy we will help you</p>
+                    <button class="btncard1">create playlist</button>
+                </div>
+
+
+                <div class="card2">
+                    <h4>Let's Find Some Podcast To Follow's</h4>
+                    <p>We'll Keep updated on new episodes</p>
+                    <button class="btncard1">Browse Podcast</button>
+                </div>
+
+
+                <footer class="footer1">
+
+                    <div class="list-foot-1">
+
+                        <li>Legel</li>
+                        <li>Security&privacy center </li>
+                        <li>Privacy Policy</li>
+                        <li>Cookies</li>
+                    </div>
+                    <div class="list-foot-2">
+
+
+                        <li>About Ads</li>
+                        <li>Accessiblity</li>
+
+                    </div>
+                    <ul>
+                        <li class="foot-1-Cookies" href="#"> Cookies</li>
+                    </ul>
+
+                    <button class="foot1-btn">English</button>
+
+                </footer>
+            </section>
+
+            <section class="Right">
+                <h1 class="Trending-song">Trending Song</h1>
+
+                <div class="rectangle-1">
+
+                    <div class="music-player" id="musicPlayer">
+
+                        <button class="close-player" id="closePlayer">✕</button>
+
+                        <img id="playerImage" src="" alt="">
+
+                        <h1 id="playerSong"></h1>
+
+                        <p id="playerArtist"></p>
+
+                        <div class="player-controls">
+                            <button id="previousBtn">⏮</button>
+                            <button id="playBtn">▶</button>
+                            <button id="nextBtn">⏭</button>
+                        </div>
+
+                    </div>
+
+                    <div class="box1" id="song1">
+                        <img src="assets/download1.jpg" alt="">
+                        <h3>Shape of You</h3>
+                        <p>Ed Sheeran</p>
+                        <audio id="audio1" src="assets/Song1.mp3"></audio>
+                    </div>
+
+                    <div class="box2" id="song2">
+                        <img src="assets/download2.jpg" alt="">
+                        <h3>Blinding Lights</h3>
+                        <p>The Weeknd</p>
+                        <audio id="audio2" src="assets/Song2.mp3"></audio>
+                    </div>
+
+                    <div class="box3" id="song3">
+                        <img src="assets/download3.jpg" alt="">
+                        <h3>Levitating</h3>
+                        <p>Dua Lipa</p>
+                        <audio id="audio3" src="assets/Song1.mp3"></audio>
+                    </div>
+
+                    <div class="box4" id="song4">
+                        <img src="assets/download4.webp" alt="">
+                        <h3>Finding Her</h3>
+                        <p>Bharath</p>
+                        <audio id="audio4" src="assets/Song2.mp3"></audio>
+                    </div>
+
+                    <div class="box5" id="song5">
+                        <img src="assets/downlode5.jpg" alt="">
+                        <h3>Apna Bana Le</h3>
+                        <p>Arijit Singh</p>
+                        <audio id="audio5" src="assets/Song2.mp3"></audio>
+                    </div>
+                </div>
+
+
+
+                <div class="rectangel-2">
+
+                    <div class="Popular-artist">
+                        <h1>Popular artist</h1>
+                    </div>
+
+                    <div class="circle">
+
+                        <div class="circle1">
+                            <img class="img1" src="assets/img1.jpg" alt="" srcset="">
+                            <h3>Pritam</h3>
+                            <p>artist</p>
+                        </div>
+                        <div class="circle2">
+                            <img class="img2" src="assets/img2.jpg" alt="" srcset="">
+                            <h3>Arijit Singh</h3>
+                            <p>artist</p>
+                        </div>
+                        <div class="circle3">
+                            <img class="img3" src="assets/img3.jpg" alt="" srcset="">
+                            <h3>A.R Rahman</h3>
+                            <p>artist</p>
+                        </div>
+                        <div class="circle4">
+                            <img class="img4" src="assets/img4.jpg" alt="" srcset="">
+                            <h3>Sachine-jigar</h3>
+                            <p>artist</p>
+                        </div>
+                        <div class="circle5">
+                            <img class="img5" src="assets/img5.jpg" alt="" srcset="">
+                            <h3>Atif Aslam</h3>
+                            <p>artist</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-2">
+
+                    <div class="footer-2-top">
+
+                        <div class="footer-2-left">
+
+                            <div class="company">
+                                <h3>company</h3>
+                                <li>About</li>
+                                <li>jobs</li>
+                                <li>For the record</li>
+                            </div>
+
+                            <div class="Communities">
+                                <h3>Communities</h3>
+                                <li>For Artist</li>
+                                <li>For Creater</li>
+                                <li>For Author</li>
+                                <li>Developer</li>
+                                <li>Advertising</li>
+                                <li>Invester</li>
+                                <li>Vendors</li>
+                            </div>
+
+                            <div class="Usefullinks">
+                                <h3>Usefullinks</h3>
+                                <li>Support</li>
+                                <li>Free Mobile Apps</li>
+                                <li>Popular By Country</li>
+                                <li>Top Song lyrics</li>
+                                <li>Import Your Music</li>
+                            </div>
+
+                            <div class="SpotifyPlans">
+                                <h3>SpotifyPlans</h3>
+                                <li>Premium Standard</li>
+                                <li>Premium Platinum</li>
+                                <li>Premium Student</li>
+                                <li>Spotify Free</li>
+                            </div>
+
+                        </div>
+
+
+                        <div class="footer-2-right">
+
+                            <div class="insta">
+                                <img src="assets/instagram-logo-svgrepo-com.svg" alt="">
+                            </div>
+
+                            <div class="twit">
+                                <img src="assets/Twitter-X--Streamline-Bootstrap.svg" alt="">
+                            </div>
+
+                            <div class="facebook">
+                                <img src="assets/facebook-svgrepo-com.svg" alt="">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <hr>
+
+
+                    <div class="end">
+                        © 2026 Spotify AB
+                    </div>
+
+                </div>
+
+                <div class="music-player" id="musicPlayer">
+
+                    <button class="close-player" id="closePlayer">✕</button>
+                    <img id="playerImage" src="" alt="">
+                    <h1 id="playerSong"></h1>
+                    <p id="playerArtist"></p>
+                    <div class="player-controls">
+                        <button>⏮</button>
+                        <button id="playBtn">▶</button>
+                        <button>⏭</button>
+                    </div>
+
+                </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>>
